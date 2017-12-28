@@ -77,7 +77,12 @@ public class RunescapeAPIInterface {
 		}
 	}
 
-	// item = 11834
+	/**
+	 * Returns a RunescapeResponse object or null.
+	 * 
+	 * @param item
+	 * @return RunescapeResponse
+	 */
 	public static RunescapeResponse getItem(String item) {
 		RunescapeResponse resp = new RunescapeResponse();
 

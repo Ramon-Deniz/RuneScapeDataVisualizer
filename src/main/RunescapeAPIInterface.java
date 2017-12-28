@@ -15,7 +15,7 @@ import java.net.URLConnection;
 import org.json.JSONObject;
 
 /*
- * {  
+  {  
    "item":{  
       "icon":"http://services.runescape.com/m=itemdb_rs/4908_obj_sprite.gif?id=4151",
       "icon_large":"http://services.runescape.com/m=itemdb_rs/4908_obj_big.gif?id=4151",
@@ -66,7 +66,7 @@ public class RunescapeAPIInterface {
 				while ((line = reader.readLine()) != null) {
 					sb.append(line + "\n");
 				}
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -85,28 +85,55 @@ public class RunescapeAPIInterface {
 			JSONObject jsonObj = getJSONObjectItem(item).getJSONObject("item");
 
 			resp.id = jsonObj.getInt("id");
+			resp.type = jsonObj.getString("type");
 			resp.name = jsonObj.getString("name");
 			resp.description = jsonObj.getString("description");
 			resp.members = jsonObj.getBoolean("members");
-			
+
 			resp.current_trend = jsonObj.getJSONObject("current").getString("trend");
-			resp.current_price = jsonObj.getJSONObject("current").getString("price");
-			
+			String tempCurrentPrice = jsonObj.getJSONObject("current").get("price").toString();
+			resp.current_price = convertRunescapePriceStringToInt(tempCurrentPrice);
+
 			resp.today_trend = jsonObj.getJSONObject("today").getString("trend");
-			resp.today_price = jsonObj.getJSONObject("today").getString("price");
-			
+			String tempTodayPrice = jsonObj.getJSONObject("today").get("price").toString();
+			resp.today_price = convertRunescapePriceStringToInt(tempTodayPrice);
+
 			resp.day30_trend = jsonObj.getJSONObject("day30").getString("trend");
 			resp.day30_change = jsonObj.getJSONObject("day30").getString("change");
-			
+
 			resp.day90_trend = jsonObj.getJSONObject("day90").getString("trend");
 			resp.day90_change = jsonObj.getJSONObject("day90").getString("change");
-			
+
 			resp.day180_trend = jsonObj.getJSONObject("day180").getString("trend");
 			resp.day180_change = jsonObj.getJSONObject("day180").getString("change");
-			
+
 			return resp;
 		} catch (Exception e) {
 			return resp;
+		}
+	}
+	
+	private static int convertRunescapePriceStringToInt(String number) {
+		
+		// Runescape's API returns negative numbers as "- 12"
+		number = number.replace(" ", "");
+		
+		// Runescape API contains commas in the prices. Ex "1,234"
+		number = number.replace(",", "");
+		
+		try {
+			int num = Integer.parseInt(number);
+			return num;
+		} catch (NumberFormatException e) {
+			if (number.contains("k")) {
+				number = number.replace("k", "");
+				return (int) (Double.parseDouble(number) * 1000);
+			} else if (number.contains("m")) {
+				number = number.replace("m", "");
+				return (int) (Double.parseDouble(number) * 1000000);
+			}
+			
+			return 0;
 		}
 	}
 }

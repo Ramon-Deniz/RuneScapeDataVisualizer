@@ -19,10 +19,15 @@ public class Main {
 	public static void main(String[] args) {
 
 		for (int i = 5; i < 100; i++) {
-			RunescapeResponse resp = RunescapeAPIInterface.getItem(""+i);
-			if(resp.name!=null)
-				System.out.println("Item: "+resp.name+"   Price: "+resp.current_price + " i = " + i);
+			//RunescapeResponse resp = RunescapeAPIInterface.getItem(""+i);
+			//if(resp.name!=null)
+			//	System.out.println("Item: "+resp.name+"   Price: "+resp.current_price + " i = " + i);
 		}
-
+		
+		
+		
+		
+		RunescapeResponse resp = RunescapeAPIInterface.getItem("11834");
+		System.out.println(resp);
 	}
 }

@@ -1,6 +1,8 @@
 /**
  * @author Miguel Deniz
- * @version 12/27/17
+ * Created: 12/27/17
+ * 
+ * Last update: 12/28/17
  */
 
 package main;

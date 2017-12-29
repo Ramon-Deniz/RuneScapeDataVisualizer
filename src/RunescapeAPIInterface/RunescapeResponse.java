@@ -5,9 +5,10 @@
  * Last update: 12/28/17
  */
 
-package main;
+package RunescapeAPIInterface;
 
 public class RunescapeResponse {
+	
 	int id;
 	String type;
 	String name;
@@ -15,10 +16,10 @@ public class RunescapeResponse {
 	boolean members;
 	
 	String current_trend;
-	String current_price;
+	int current_price;
 	
 	String today_trend;
-	String today_price;
+	int today_price;
 	
 	String day30_trend;
 	String day30_change;

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.*;
@@ -26,6 +27,6 @@ public class Main {
 		//}
 		
 		SearchEngine test= new SearchEngine("src/itemID.txt");
-		System.out.println(Arrays.toString(test.search("Bronze")));
+		System.out.println(test.search("dragon"));
 	}
 }

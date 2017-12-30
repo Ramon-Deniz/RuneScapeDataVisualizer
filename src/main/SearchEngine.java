@@ -2,52 +2,63 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Ramon Deniz 12/30/17
+ */
 public class SearchEngine {
-
+	/**
+	 * Constructor
+	 * 
+	 * @param fileLocation
+	 */
 	public SearchEngine(String fileLocation) {
 		try {
 			Scanner scan = new Scanner(new File(fileLocation));
-			lineCount=0;
-			while(scan.hasNextLine()) {
-				scan.nextLine();
-				lineCount++;
+			while (scan.hasNextLine()) {
+				String[] lineSplit = scan.nextLine().split(",");
+				fileToArrayList.add(new SearchResult(Integer.parseInt(lineSplit[0]), lineSplit[1]));
 			}
 			scan.close();
-			fileToStringArray = new String[lineCount];
-			setStringArray(fileLocation);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private static void setStringArray(String fileLocation) throws FileNotFoundException {
-		Scanner scan = new Scanner(new File(fileLocation));
-		int index=0;
-		while(scan.hasNextLine())
-			fileToStringArray[index++]=scan.nextLine();
+
+	/**
+	 * Searches for item name or related terms. Returns empty list if match is not
+	 * found.
+	 * 
+	 * @param searchTerm
+	 * @return ArrayList<SearchResult>
+	 */
+	public ArrayList<SearchResult> search(String searchTerm) {
+		searchTerm = searchTerm.toLowerCase();
+		ArrayList<SearchResult> relatedTerms = new ArrayList<SearchResult>();
+
+		for (SearchResult item : fileToArrayList)
+			if (item.name.toLowerCase().contains(searchTerm))
+				relatedTerms.add(new SearchResult(item.ID, item.name));
+
+		return relatedTerms;
 	}
-	
-	private static int countMatches(String searchTerm) { 
-		int count=0;
-		for(int i=0;i<lineCount-1;i++)
-			if(fileToStringArray[i].toLowerCase().contains(searchTerm))
-				count++;
-		return count;
+
+	/**
+	 * Searches for specific ID. Returns null if ID is not found.
+	 * 
+	 * @param ID
+	 * @return SearchResult
+	 */
+	public SearchResult search(int ID) {
+		for (SearchResult item : fileToArrayList)
+			if (item.ID == ID)
+				return new SearchResult(item.ID, item.name);
+		return null;
 	}
-	
-	public String[] search(String searchTerm) {
-		searchTerm=searchTerm.toLowerCase();
-		String[] relatedSearchTerms = new String[countMatches(searchTerm)];
-		int index=0;
-		for(int i=0;i<lineCount;i++)
-			if(fileToStringArray[i].toLowerCase().contains(searchTerm))
-				relatedSearchTerms[index++]=fileToStringArray[i];
-		return relatedSearchTerms;
-	}
-	
-	private static int lineCount;
-	private static String[] fileToStringArray;
+
+	private static ArrayList<SearchResult> fileToArrayList = new ArrayList<SearchResult>();
+
 }

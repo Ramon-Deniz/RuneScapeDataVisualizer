@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -18,11 +19,13 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		for (int i = 5; i < 100; i++) {
-			RunescapeResponse resp = RunescapeAPIInterface.getItem(""+i);
-			if(resp.name!=null)
-				System.out.println("Item: "+resp.name+"   Price: "+resp.current_price + " i = " + i);
-		}
-
+		//for (int i = 5; i < 100; i++) {
+			//RunescapeResponse resp = RunescapeAPIInterface.getItem(""+i);
+			//if(resp.name!=null)
+				//System.out.println("Item: "+resp.name+"   Price: "+resp.current_price + " i = " + i);
+		//}
+		
+		SearchEngine test= new SearchEngine("src/itemID.txt");
+		System.out.println(Arrays.toString(test.search("Bronze")));
 	}
 }

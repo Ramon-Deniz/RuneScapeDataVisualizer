@@ -1,4 +1,4 @@
-package main;
+package Search;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +8,17 @@ import java.util.Scanner;
 /**
  * 
  * @author Ramon Deniz 12/30/17
+ * 
+ * Sample Code
+ * 
+ * Create an instance
+ * 		SearchEngine engine = new SearchEngine("file.txt");
+ * 
+ * Search by item name
+ * 		engine.search("name");
+ * 
+ * Search by item ID
+ * 		engine.search(1234);
  */
 public class SearchEngine {
 	/**

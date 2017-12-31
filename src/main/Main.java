@@ -16,6 +16,8 @@ import javax.swing.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import Search.SearchEngine;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -28,5 +30,6 @@ public class Main {
 		
 		SearchEngine test= new SearchEngine("src/itemID.txt");
 		System.out.println(test.search("dragon"));
+		System.out.print(RunescapeAPIInterface.RunescapeAPIInterface.getRunescapeHighscores("Fudget"));
 	}
 }

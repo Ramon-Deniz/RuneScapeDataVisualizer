@@ -1,4 +1,4 @@
-package main;
+package Search;
 
 public class SearchResult {
 	public SearchResult(int i, String string) {

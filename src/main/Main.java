@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import Search.SearchEngine;
+import StatTracker.XPCalculator;
 
 public class Main {
 
@@ -28,8 +29,6 @@ public class Main {
 				//System.out.println("Item: "+resp.name+"   Price: "+resp.current_price + " i = " + i);
 		//}
 		
-		SearchEngine test= new SearchEngine("src/itemID.txt");
-		System.out.println(test.search("dragon"));
-		System.out.print(RunescapeAPIInterface.RunescapeAPIInterface.getRunescapeHighscores("Fudget"));
+		System.out.println(XPCalculator.XPToNextLevel(5000000, 99));
 	}
 }
